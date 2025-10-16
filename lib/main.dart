@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
+import 'services/api_service.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+    return MaterialApp(
+      title: 'Consumo de API',
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  void _cargarUsuarios() {
+    ApiService.fetchUsuarios();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('API REST en Flutter')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: _cargarUsuarios, 
+          child: Text('Cargar Usuarios'),
         ),
       ),
     );
