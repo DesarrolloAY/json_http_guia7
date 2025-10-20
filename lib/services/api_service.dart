@@ -4,12 +4,15 @@ import 'dart:convert';
 class ApiService {
   static Future<void> fetchUsuarios() async {
     final url = Uri.parse('https://reqres.in/api/users');
-    final response = await http.get(url);
+    final response = await http.get(
+      url,
+      headers: {'Authorization': 'Bearer tu_token_aqui'},
+    );
 
-    if (response.statusCode == 200){
+    if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       print(data['data']);
-    }else{
+    } else {
       print('Error al cargar usuarios: ${response.statusCode}');
     }
   }
