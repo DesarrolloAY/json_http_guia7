@@ -2,18 +2,15 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ApiService {
-  static Future<void> fetchUsuarios() async {
+  static Future<List<dynamic>> fetchUsers() async {
     final url = Uri.parse('https://reqres.in/api/users');
-    final response = await http.get(
-      url,
-      headers: {'Authorization': 'Bearer tu_token_aqui'},
-    );
+    final response = await http.get(url);
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      print(data['data']);
+      return data['data']; // Retorna lista de Maps
     } else {
-      print('Error al cargar usuarios: ${response.statusCode}');
+      throw Exception('Error: ${response.statusCode}');
     }
   }
 }
